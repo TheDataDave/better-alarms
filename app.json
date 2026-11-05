@@ -1,24 +1,72 @@
 {
   "expo": {
-    "name": "better-alarms",
+    "name": "Better Alarms",
     "slug": "better-alarms",
-    "version": "1.0.0",
+    "description": "An alarm clock for shift workers. Alarms follow your work calendar or rotation (like 2-2-3), skip your days off and holidays, and keep your cycle going. Also includes everyday alarms, timers, a stopwatch and a world clock.",
+    "scheme": "betteralarms",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "primaryColor": "#FF8A3D",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0F1720",
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.betteralarms.app",
+      "versionCode": 2,
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ],
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#0F1720",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "permissions": [
+        "android.permission.READ_CALENDAR",
+        "android.permission.WRITE_CALENDAR"
+      ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "plugins": [
+      "expo-background-task",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Better Alarms reads your calendar to set alarms on your work days."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraProguardRules": "# WorkManager (used by expo-background-task) builds its Room database by reflection; R8 strips the constructor otherwise.\n-keep class * extends androidx.room.RoomDatabase { <init>(); }\n-keep class androidx.work.impl.WorkDatabase_Impl { *; }\n"
+          }
+        }
+      ],
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#0F1720"
+        }
+      ],
+      "./plugins/with-short-cmake-paths",
+      "./plugins/with-clock-intents"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e7333429-368c-466f-8b60-f210b9a647f9"
+      }
     }
   }
 }

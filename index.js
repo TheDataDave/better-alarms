@@ -1,8 +1,4 @@
-import { registerRootComponent } from 'expo';
-
-import App from './App';
-
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+// Defines the background calendar-sync task. It must load before the router so
+// Android can run it headless, without any screen being rendered.
+import './src/services/background';
+import 'expo-router/entry';

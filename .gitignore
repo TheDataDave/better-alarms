@@ -39,3 +39,11 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Gradle output inside local native modules
+modules/*/android/build/
+modules/*/android/.cxx/
+.gradle/
+
+# EAS cloud simulator session (contains a token)
+.env.eas-simulator
